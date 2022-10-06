@@ -1,5 +1,5 @@
 {
-    "name": "json/zlib-compressor",
+    "name": "json-zlib/compressor",
     "type": "library",
     "description": "A library to (de-)compress JSON strings using `zlib`.",
     "homepage": "https://github.com/BR0kEN-/json-zlib-compressor",
