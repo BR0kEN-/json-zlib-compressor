@@ -18,6 +18,12 @@ jobs:
     qa:
         runs-on: ubuntu-20.04
         if: ${{ github.event_name == 'pull_request' }}
+        strategy:
+            matrix:
+              php-version:
+                - '7.4'
+                - '8.0'
+                - '8.1'
         defaults:
             run:
                 shell: bash
@@ -37,7 +43,7 @@ jobs:
 
           - uses: shivammathur/setup-php@v2
             with:
-                php-version: "8.0"
+                php-version: ${{ matrix.php-version }}
                 coverage: xdebug
                 ini-values: zend.assertions=1
 
