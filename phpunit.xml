@@ -1,0 +1,16 @@
+<phpunit
+    colors="true"
+    verbose="true"
+>
+    <testsuites>
+        <testsuite name="Default">
+            <directory suffix=".php">./tests/src</directory>
+        </testsuite>
+    </testsuites>
+
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">./src</directory>
+        </include>
+    </coverage>
+</phpunit>

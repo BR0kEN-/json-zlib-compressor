@@ -1,0 +1,53 @@
+name: 'Quality Assurance'
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        types:
+            - opened
+            - synchronize
+            - reopened
+
+permissions:
+    pull-requests: write
+    contents: write
+
+jobs:
+    qa:
+        runs-on: ubuntu-20.04
+        if: ${{ github.event_name == 'pull_request' }}
+        defaults:
+            run:
+                shell: bash
+        steps:
+          - uses: actions/checkout@v3
+
+          - id: composer-cache
+            run: |
+                echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+          - uses: actions/cache@v3
+            with:
+                path: ${{ steps.composer-cache.outputs.dir }}
+                key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                restore-keys: |
+                    ${{ runner.os }}-composer-
+
+          - uses: shivammathur/setup-php@v2
+            with:
+                php-version: "8.0"
+                coverage: xdebug
+                ini-values: zend.assertions=1
+
+          - name: Install Dependencies
+            run: |
+                composer self-update --2
+                composer install --prefer-dist --no-interaction
+
+          - name: Test
+            run: |
+                composer phpcs
+                composer phpstan
+                composer test
