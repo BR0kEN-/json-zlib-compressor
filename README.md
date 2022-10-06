@@ -2,6 +2,12 @@
 
 A library to (de-)compress JSON strings using `zlib`.
 
+## Installation
+
+```shell
+composer require json-zlib/compressor
+```
+
 ## Usage
 
 ```php
