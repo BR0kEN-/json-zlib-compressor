@@ -1,0 +1,10 @@
+/*
+.*
+
+!/src/
+!/tests/
+
+!/.git*
+!/composer.json
+!/phpunit.xml
+!/README.md
